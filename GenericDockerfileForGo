@@ -1,0 +1,26 @@
+ARG PROJECT
+FROM eu.gcr.io/${PROJECT}/go-baseimage:0.0.9
+
+# generate ~/.git-credentials so dep can download dependencies from private repo
+ARG GITHUB_USER
+ARG GITHUB_TOKEN
+ARG GOSEC_OPTS
+RUN git config --global credential.helper store && echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
+
+WORKDIR /go/src/github.com/skysoft-atm/${APP_NAME}
+
+
+ENV GOPRIVATE=github.com/skysoft-atm
+# Dowload all deps at this step so they can be cached for the next build
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+RUN go mod verify
+
+COPY . .
+RUN go vet ./...
+RUN /usr/bin/staticcheck ./...
+RUN /usr/bin/gosec ${GOSEC_OPTS} ./...
+RUN go test ./... -race
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./...
+

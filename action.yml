@@ -1,0 +1,31 @@
+# action.yml
+name: 'Build and Push Docker Image'
+description: 'build and push a docker image'
+inputs:
+  dockerfile:
+    description: 'dockerfile'
+    default: '/GenericDockerfileForGo'
+    required: true
+  github_user:
+    description: 'github_user'
+    required: true
+  github_token:
+    description: 'github_token'
+    required: true
+  project:
+    description: 'project'
+    default: 'ccs-skyserver'
+    required: true
+  gosec_opts:
+    description: 'options for gosec command line'
+    default: ''
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.dockerfile }}
+    - ${{ inputs.github_user }}
+    - ${{ inputs.github_token }}
+    - ${{ inputs.project }}
+    - ${{ inputs.gosec_opts }}
