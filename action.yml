@@ -20,6 +20,9 @@ inputs:
     description: 'options for gosec command line'
     default: ''
     required: true
+  gcloud_token:
+    description: 'gcloud_token'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -29,3 +32,4 @@ runs:
     - ${{ inputs.github_token }}
     - ${{ inputs.project }}
     - ${{ inputs.gosec_opts }}
+    - ${{ inputs.gcloud_token }}
