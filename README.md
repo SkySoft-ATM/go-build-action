@@ -4,7 +4,7 @@ Github action to build go projects
 # Usage
 <!-- start usage -->
 ```yaml
-- uses: SkySoft-ATM/go-release-action@v1
+- uses: SkySoft-ATM/go-build-action@v1
   with:
     # Github user
     github_user:  ${{ secrets.MY_GITHUB_USER }}
