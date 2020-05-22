@@ -14,7 +14,7 @@ inputs:
     required: true
   project:
     description: 'project'
-    default: 'ccs-skyserver'
+    default: 'sk-private-registry/skysoft-atm'
     required: true
   gosec_opts:
     description: 'options for gosec command line'

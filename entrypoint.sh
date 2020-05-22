@@ -18,4 +18,4 @@ if [ -z "${GCLOUD_TOKEN}" ]; then echo "::error ::Undefined GCLOUD_TOKEN" && exi
 echo "Login to GCR"
 echo "${GCLOUD_TOKEN}" | base64 -d | docker login -u _json_key --password-stdin https://eu.gcr.io
 
-docker build --build-arg GITHUB_USER="${GITHUB_USER}" --build-arg GITHUB_TOKEN="${GITHUB_TOKEN}" --build-arg PROJECT="${PROJECT}" --build-arg GOSEC_OPTS="${GOSEC_OPTS}" . -f "${DOCKERFILE}"
+docker build --build-arg GITHUB_USER="${GITHUB_USER}" --build-arg GITHUB_TOKEN="${GITHUB_TOKEN}" --build-arg GOSEC_OPTS="${GOSEC_OPTS}" . -f "${DOCKERFILE}"
