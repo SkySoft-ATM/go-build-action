@@ -13,7 +13,7 @@ Github action to build go projects
     github_token:  ${{ secrets.MY_GITHUB_TOKEN }}
 
     # GKE Project
-    # Default:  ccs-skyserver
+    # Default:  sk-private-registry/skysoft-atm
     project: myProject
     
     # The dockerfile used to build the docker image
