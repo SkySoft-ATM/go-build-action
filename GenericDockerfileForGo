@@ -4,6 +4,10 @@ FROM eu.gcr.io/sk-registry/go-baseimage:0.0.18
 ARG GITHUB_USER
 ARG GITHUB_TOKEN
 ARG GOSEC_OPTS
+ARG SKIP_GOVET
+ARG SKIP_STATICCHECK
+ARG SKIP_GOSEC
+ARG SKIP_TESTS
 RUN git config --global credential.helper store && echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
 
 WORKDIR /go/src/github.com/skysoft-atm/${APP_NAME}
