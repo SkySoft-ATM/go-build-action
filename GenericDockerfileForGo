@@ -17,9 +17,9 @@ RUN go mod download
 RUN go mod verify
 
 COPY . .
-RUN go vet ./...
-RUN /usr/bin/staticcheck ./...
-RUN /usr/bin/gosec ${GOSEC_OPTS} ./...
-RUN go test ./... -race
+RUN if [ "$SKIP_GOVET" = "true" ] ; then echo "Skipping go vet" ; else go vet ./... ; fi
+RUN if [ "$SKIP_STATICCHECK" = "true" ] ; then echo "Skipping staticcheck" ; else /usr/bin/staticcheck ./... ; fi
+RUN if [ "$SKIP_GOSEC" = "true" ] ; then echo "Skipping gosec" ; else /usr/bin/gosec ${GOSEC_OPTS} ./... ; fi
+RUN if [ "$SKIP_TESTS" = "true" ] ; then echo "Skipping tests" ; else go test ./... -race ; fi
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./...
 
