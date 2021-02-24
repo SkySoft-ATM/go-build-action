@@ -7,6 +7,7 @@ ARG GOSEC_OPTS
 ARG SKIP_GOVET
 ARG SKIP_STATICCHECK
 ARG SKIP_GOSEC
+ARG SKIP_GOLANGCI_LINT
 ARG SKIP_TESTS
 RUN git config --global credential.helper store && echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
 
@@ -24,6 +25,7 @@ COPY . .
 RUN if [ "$SKIP_GOVET" = "true" ] ; then echo "Skipping go vet" ; else go vet ./... ; fi
 RUN if [ "$SKIP_STATICCHECK" = "true" ] ; then echo "Skipping staticcheck" ; else /usr/bin/staticcheck ./... ; fi
 RUN if [ "$SKIP_GOSEC" = "true" ] ; then echo "Skipping gosec" ; else /usr/bin/gosec ${GOSEC_OPTS} ./... ; fi
+RUN if [ "$SKIP_GOLANGCI_LINT" = "true" ] ; then echo "Skipping golangci-lint" ; else /usr/bin/golangci-lint run ; fi
 RUN if [ "$SKIP_TESTS" = "true" ] ; then echo "Skipping tests" ; else go test ./... -race ; fi
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./...
 

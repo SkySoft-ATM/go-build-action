@@ -32,6 +32,10 @@ inputs:
     description: 'option to skip gosec'
     default: 'false'
     required: true
+  skip_golangci_lint:
+    description: 'option to skip golangci-lint'
+    default: 'false'
+    required: true
   skip_tests:
     description: 'option to skip unit tests'
     default: 'false'
@@ -49,3 +53,4 @@ runs:
     - ${{ inputs.skip_staticcheck }}
     - ${{ inputs.skip_gosec }}
     - ${{ inputs.skip_tests }}
+    - ${{ inputs.skip_golangci_lint }}
